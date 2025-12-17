@@ -146,7 +146,7 @@ public class Login extends javax.swing.JFrame {
 
     try {
     Connection conn = Database.getConnection();
-    String sql = "SELECT nama, role FROM Users WHERE email=? AND password=?";
+    String sql = "SELECT id, nama, role FROM Users WHERE email=? AND password=?";
     PreparedStatement ps = conn.prepareStatement(sql);
     ps.setString(1, email);
     ps.setString(2, password);
@@ -154,9 +154,10 @@ public class Login extends javax.swing.JFrame {
     ResultSet rs = ps.executeQuery();
 
     if(rs.next()) {
+         String idUser = rs.getString("id");
          String namaUser = rs.getString("nama");
          String roleUser = rs.getString("role");
-         menuUtama utama = new menuUtama(namaUser, roleUser);
+         menuUtama utama = new menuUtama(idUser, namaUser, roleUser);
          utama.setVisible(true);
          this.dispose();
     } else {
