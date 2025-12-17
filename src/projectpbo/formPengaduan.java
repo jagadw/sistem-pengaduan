@@ -3,21 +3,59 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import projectpbo.Connection.Database;
 /**
  *
  * @author JAGAD
  */
-public class formPengaduan extends javax.swing.JFrame {
+public class FormPengaduan extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(formPengaduan.class.getName());
+    private String idUser;
+    private String namaUser;
+    private String roleUser;
 
-    /**
-     * Creates new form formPengaduan
-     */
-    public formPengaduan() {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPengaduan.class.getName());
+    public FormPengaduan(String idUser, String namaUser, String roleUser) {
+    initComponents();
+        this.idUser = idUser;
+        this.namaUser = namaUser;
+        this.roleUser = roleUser;
+        
+        inputNama.setEditable(true);
+        loadKategori();
+    }
+    
+    public FormPengaduan() {
         initComponents();
     }
+    
+    private void loadKategori() {
+    try {
+    Connection con = Database.getConnection();
+    String sql = "SELECT id_kategori, nama_kategori FROM Kategori";
+    PreparedStatement ps = con.prepareStatement(sql);
+    ResultSet rs = ps.executeQuery();
+
+        selectKategori.removeAllItems();
+
+        while (rs.next()) {
+            selectKategori.addItem(
+                rs.getInt("id_kategori") + " - " + rs.getString("nama_kategori")
+            );
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal load kategori");
+    }
+
+
+    }
+    /**
+     * Creates new form FormPengaduan
+     */
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +66,121 @@ public class formPengaduan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        HeaderLogin = new javax.swing.JLabel();
+        Nama = new javax.swing.JLabel();
+        inputNama = new javax.swing.JTextField();
+        Kategori = new javax.swing.JLabel();
+        Pesan = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        inputPesan = new javax.swing.JTextArea();
+        selectKategori = new javax.swing.JComboBox<>();
+        Kirim = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        HeaderLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        HeaderLogin.setText("Pengaduan");
+
+        Nama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nama.setText("Nama");
+
+        Kategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Kategori.setText("Kategori");
+
+        Pesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Pesan.setText("Pesan");
+
+        inputPesan.setColumns(20);
+        inputPesan.setRows(5);
+        jScrollPane1.setViewportView(inputPesan);
+
+        selectKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        Kirim.setText("Kirim");
+        Kirim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KirimActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Nama)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1)
+                                .addComponent(inputNama))
+                            .addComponent(Pesan)
+                            .addComponent(Kategori)
+                            .addComponent(selectKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Kirim)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(HeaderLogin)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(HeaderLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nama)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Kategori)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Pesan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Kirim)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void KirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirimActionPerformed
+        // TODO add your handling code here:
+        String pesan = inputPesan.getText();
+
+        if (pesan.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pesan wajib diisi");
+            return;
+        }
+
+        String kategoriDipilih = selectKategori.getSelectedItem().toString();
+        String idKategori = kategoriDipilih.split(" - ")[0];
+
+        try {
+            Connection con = Database.getConnection();
+            String sql = "INSERT INTO Pengaduan (id_user, id_kategori, pesan, tanggal_kirim, status) "
+                       + "VALUES (?, ?, ?, NOW(), 'Menunggu')";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, Integer.parseInt(idUser));
+            ps.setInt(2, Integer.parseInt(idKategori));
+            ps.setString(3, pesan);
+
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Pengaduan berhasil dikirim");
+            inputPesan.setText("");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengirim pengaduan");
+        }
+    }//GEN-LAST:event_KirimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -66,9 +204,18 @@ public class formPengaduan extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new formPengaduan().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormPengaduan().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel HeaderLogin;
+    private javax.swing.JLabel Kategori;
+    private javax.swing.JButton Kirim;
+    private javax.swing.JLabel Nama;
+    private javax.swing.JLabel Pesan;
+    private javax.swing.JTextField inputNama;
+    private javax.swing.JTextArea inputPesan;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> selectKategori;
     // End of variables declaration//GEN-END:variables
 }
