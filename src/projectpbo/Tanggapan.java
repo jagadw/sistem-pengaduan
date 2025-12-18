@@ -33,8 +33,8 @@ public class Tanggapan extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        namaPengirim = new javax.swing.JTextField();
         pesanBalasan = new javax.swing.JTextField();
+        namaPengirim = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,9 +66,9 @@ public class Tanggapan extends javax.swing.JFrame {
 
         jLabel2.setText("Dari :");
 
-        namaPengirim.addActionListener(this::namaPengirimActionPerformed);
-
         pesanBalasan.addActionListener(this::pesanBalasanActionPerformed);
+
+        namaPengirim.setText("Nama Pengirim");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -80,19 +80,19 @@ public class Tanggapan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pesanBalasan, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(namaPengirim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namaPengirim))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(namaPengirim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namaPengirim))
                 .addGap(18, 18, 18)
-                .addComponent(pesanBalasan, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(pesanBalasan, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -131,10 +131,6 @@ public class Tanggapan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void namaPengirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaPengirimActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_namaPengirimActionPerformed
-
     private void pesanBalasanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesanBalasanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pesanBalasanActionPerformed
@@ -170,7 +166,7 @@ public class Tanggapan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField namaPengirim;
+    private javax.swing.JLabel namaPengirim;
     private javax.swing.JTextField pesanBalasan;
     // End of variables declaration//GEN-END:variables
 }

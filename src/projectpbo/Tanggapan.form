@@ -130,14 +130,14 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="namaPengirim" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="pesanBalasan" min="-2" pref="236" max="-2" attributes="0"/>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <Component id="pesanBalasan" min="-2" pref="242" max="-2" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -148,15 +148,15 @@
                 <Property name="text" type="java.lang.String" value="Dari :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="namaPengirim">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="namaPengirimActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="pesanBalasan">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pesanBalasanActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="namaPengirim">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nama Pengirim"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
