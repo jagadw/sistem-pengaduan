@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class Database {
     private static final String URL = "jdbc:mysql://localhost:3306/projectpbo";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "Gboet#699";
     public static Connection getConnection() throws SQLException {
     return DriverManager.getConnection(URL, USER, PASS);
 

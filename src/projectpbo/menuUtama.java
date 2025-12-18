@@ -9,6 +9,7 @@ package projectpbo;
  * @author JAGAD
  */
 public class menuUtama extends javax.swing.JFrame {
+    private String idUser;
     private String namaUser;
     private String roleUser;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(menuUtama.class.getName());
@@ -16,16 +17,21 @@ public class menuUtama extends javax.swing.JFrame {
     /**
      * Creates new form menuUtama
      */
-    public menuUtama(String namaUser, String roleUser) {
+    public menuUtama(String idUser, String namaUser, String roleUser) {
         initComponents();
+        this.idUser = idUser;
         this.namaUser = namaUser;
         this.roleUser = roleUser;
         User.setText(namaUser);
         Role.setText(roleUser);
+        
+        if (!roleUser.equals("Admin")) {
+            tambahKategori.setVisible(false);
+        }
     }
 
-    private menuUtama() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public menuUtama() {
+        initComponents();
     }
 
     /**
@@ -67,8 +73,18 @@ public class menuUtama extends javax.swing.JFrame {
         menuUtama.setText("Menu Utama");
 
         formPengaduan.setText("Form Pengaduan");
+        formPengaduan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formPengaduanActionPerformed(evt);
+            }
+        });
 
         daftarPengaduan.setText("Daftar Pengaduan");
+        daftarPengaduan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                daftarPengaduanActionPerformed(evt);
+            }
+        });
 
         tambahKategori.setText("Atur Kategori");
         tambahKategori.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +155,24 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void tambahKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahKategoriActionPerformed
         // TODO add your handling code here:
+        Kategori kategori = new Kategori();
+        kategori.setVisible(true);
+        dispose();
     }//GEN-LAST:event_tambahKategoriActionPerformed
+
+    private void formPengaduanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formPengaduanActionPerformed
+        // TODO add your handling code here:
+                FormPengaduan fp = new FormPengaduan(idUser, namaUser, roleUser);
+                fp.setVisible(true);
+                dispose();
+    }//GEN-LAST:event_formPengaduanActionPerformed
+
+    private void daftarPengaduanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarPengaduanActionPerformed
+        // TODO add your handling code here:
+        //        DaftarPengaduan dp = new DaftarPengaduan(namaUser, roleUser);
+        //        dp.setVisible(true);
+        //        dispose();
+    }//GEN-LAST:event_daftarPengaduanActionPerformed
 
     /**
      * @param args the command line arguments
