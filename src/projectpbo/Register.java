@@ -98,7 +98,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        buttonRegister.setBackground(new java.awt.Color(0, 153, 255));
+        buttonRegister.setBackground(new java.awt.Color(102, 204, 255));
         buttonRegister.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonRegister.setText("Register");
         buttonRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -174,9 +174,9 @@ public class Register extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(486, Short.MAX_VALUE)
+                .addContainerGap(492, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(385, 385, 385))
+                .addGap(379, 379, 379))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,10 +279,12 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField inputNama;
     private javax.swing.JPasswordField inputPassword;
     private javax.swing.JPasswordField inputPassword1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JComboBox<String> selectRole;
     // End of variables declaration//GEN-END:variables
 }
