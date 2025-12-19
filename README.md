@@ -8,4 +8,4 @@ Anggota 3        : I Putu Moreno Raditya Adinatha (240040017)
 
 Ketua            : Anggota 1
 
-Judul            : Sistem Pendataan Pengaduan 
+Judul            : Sistem Pendataan Pengaduan Dengan Java GUI
