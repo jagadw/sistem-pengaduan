@@ -1,9 +1,18 @@
+package projectpbo;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package projectpbo;
 
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import projectpbo.Connection.Database;
 /**
  *
  * @author User
@@ -17,6 +26,47 @@ public class DaftarPengaduan extends javax.swing.JFrame {
      */
     public DaftarPengaduan() {
         initComponents();
+        loadTable();     // Memuat data saat form dibuka
+        setupComboBox(); // Mengatur isi combo box
+    }
+    
+    private void setupComboBox() {
+        jComboBox1.removeAllItems();
+        jComboBox1.addItem("Menunggu");
+        jComboBox1.addItem("Proses");
+        jComboBox1.addItem("Dibalas");
+    }
+    
+    private void loadTable() {
+        DefaultTableModel model = (DefaultTableModel) tabelPengaduan.getModel();
+        model.setRowCount(0); // Reset tabel
+        
+        try {
+            Connection conn = Database.getConnection();
+            Statement s = conn.createStatement();
+            // Kita join sedikit agar terlihat nama usernya, bukan cuma ID
+            String sql = "SELECT p.*, u.nama, k.nama_kategori " +
+                         "FROM Pengaduan p " +
+                         "JOIN Users u ON p.id_user = u.id " +
+                         "JOIN Kategori k ON p.id_kategori = k.id_kategori";
+            
+            ResultSet r = s.executeQuery(sql);
+            
+            while (r.next()) {
+                Object[] row = {
+                    r.getInt("id_pengaduan"),
+                    r.getString("nama"), // Menampilkan Nama User (bukan ID) agar lebih jelas
+                    r.getString("id_tanggapan"),
+                    r.getString("nama_kategori"), // Menampilkan Nama Kategori
+                    r.getString("pesan"),
+                    r.getString("tanggal_kirim"),
+                    r.getString("status")
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+        }
     }
 
     /**
@@ -34,6 +84,8 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         tabelPengaduan = new javax.swing.JTable();
         buttonTanggapi = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtPesan = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,6 +117,11 @@ public class DaftarPengaduan extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabelPengaduan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelPengaduanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelPengaduan);
 
         buttonTanggapi.setText("Tanggapi");
@@ -73,30 +130,35 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ubah Status", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
 
+        txtPesan.setColumns(20);
+        txtPesan.setRows(5);
+        jScrollPane2.setViewportView(txtPesan);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(261, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(buttonTanggapi)))
-                .addGap(76, 76, 76))
+                    .addComponent(buttonTanggapi)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(113, 113, 113)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(buttonTanggapi))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(210, Short.MAX_VALUE))
@@ -138,7 +200,7 @@ public class DaftarPengaduan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,7 +212,37 @@ public class DaftarPengaduan extends javax.swing.JFrame {
 
     private void buttonTanggapiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTanggapiActionPerformed
         // TODO add your handling code here:
+        int baris = tabelPengaduan.getSelectedRow();
+        if (baris != -1) {
+            String idPengaduan = tabelPengaduan.getValueAt(baris, 0).toString();
+            String statusBaru = jComboBox1.getSelectedItem().toString();
+            
+            try {
+                String sql = "UPDATE Pengaduan SET status = ? WHERE id_pengaduan = ?";
+                java.sql.Connection conn = Database.getConnection();
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, statusBaru);
+                pst.setString(2, idPengaduan);
+                pst.execute();
+                
+                JOptionPane.showMessageDialog(null, "Status berhasil diperbarui!");
+                loadTable();
+                } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal update: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris terlebih dahulu!");
+        }
     }//GEN-LAST:event_buttonTanggapiActionPerformed
+
+    private void tabelPengaduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPengaduanMouseClicked
+        // TODO add your handling code here:
+        int baris = tabelPengaduan.getSelectedRow();
+        if (baris != -1) {
+            String status = tabelPengaduan.getValueAt(baris, 6).toString(); // Kolom index 6 adalah status
+            jComboBox1.setSelectedItem(status);
+        }
+    }//GEN-LAST:event_tabelPengaduanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,6 +276,8 @@ public class DaftarPengaduan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelPengaduan;
+    private javax.swing.JTextArea txtPesan;
     // End of variables declaration//GEN-END:variables
 }
