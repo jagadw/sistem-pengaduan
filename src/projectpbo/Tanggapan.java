@@ -3,20 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import projectpbo.Connection.Database;
 /**
  *
  * @author User
  */
 public class Tanggapan extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Tanggapan.class.getName());
+    // 1. Variabel penampung ID
+    private int idPengaduan; 
 
-    /**
-     * Creates new form Tanggapan
-     */
+    // Constructor Default
     public Tanggapan() {
         initComponents();
+    }
+
+    // 2. Constructor Baru dengan Parameter
+    public Tanggapan(int id) {
+        initComponents();
+        this.idPengaduan = id;
+        loadDataPengaduan(); // Load data saat dibuka
     }
 
     /**
@@ -40,6 +52,7 @@ public class Tanggapan extends javax.swing.JFrame {
         textJudul = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textBox = new javax.swing.JTextArea();
+        btnKirim = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -95,6 +108,9 @@ public class Tanggapan extends javax.swing.JFrame {
         textBox.setText("textBox");
         jScrollPane1.setViewportView(textBox);
 
+        btnKirim.setText("Kirim");
+        btnKirim.addActionListener(this::btnKirimActionPerformed);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -102,14 +118,20 @@ public class Tanggapan extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textJudul))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textJudul))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 39, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnKirim)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +142,8 @@ public class Tanggapan extends javax.swing.JFrame {
                     .addComponent(textJudul))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(btnKirim))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -153,7 +176,7 @@ public class Tanggapan extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(356, Short.MAX_VALUE)
+                .addContainerGap(338, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(337, 337, 337))
         );
@@ -162,7 +185,7 @@ public class Tanggapan extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(159, 159, 159)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,6 +206,41 @@ public class Tanggapan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKirimActionPerformed
+String isiTanggapan = textBox.getText();
+    if (isiTanggapan.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Isi tanggapan tidak boleh kosong!");
+        return;
+    }
+
+    try {
+        Connection conn = Database.getConnection();
+        
+        // 1. Simpan Tanggapan (ID User 2 = Admin)
+        String sqlInsert = "INSERT INTO Tanggapan (id_user, tanggapan) VALUES (2, ?)";
+        PreparedStatement pstInsert = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+        pstInsert.setString(1, isiTanggapan);
+        pstInsert.executeUpdate();
+        
+        ResultSet rs = pstInsert.getGeneratedKeys();
+        int idTanggapanBaru = 0;
+        if (rs.next()) { idTanggapanBaru = rs.getInt(1); }
+
+        // 2. Update Status Pengaduan
+        String sqlUpdate = "UPDATE Pengaduan SET id_tanggapan = ?, status = 'Dibalas' WHERE id_pengaduan = ?";
+        PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdate);
+        pstUpdate.setInt(1, idTanggapanBaru);
+        pstUpdate.setInt(2, this.idPengaduan);
+        pstUpdate.executeUpdate();
+
+        JOptionPane.showMessageDialog(this, "Berhasil menanggapi!");
+        this.dispose(); // Tutup form
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnKirimActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,15 +258,33 @@ public class Tanggapan extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+//            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Tanggapan().setVisible(true));
     }
-
+private void loadDataPengaduan() {
+        try {
+            Connection conn = Database.getConnection();
+            String sql = "SELECT u.nama, k.nama_kategori, p.pesan " +
+                         "FROM Pengaduan p " +
+                         "JOIN Users u ON p.id_user = u.id " +
+                         "JOIN Kategori k ON p.id_kategori = k.id_kategori " +
+                         "WHERE p.id_pengaduan = ?";
+            
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, this.idPengaduan);
+            ResultSet rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                namaPengirim.setText(rs.getString("nama"));
+                textJudul.setText(rs.getString("nama_kategori"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnKirim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
