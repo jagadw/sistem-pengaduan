@@ -16,12 +16,18 @@ import projectpbo.Connection.Database;
  */
 public class DaftarPengaduan extends javax.swing.JFrame {
     
+    private String idUser;
+    private String namaUser;
+    private String roleUser;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DaftarPengaduan.class.getName());
 
     /**
      * Creates new form DaftarPengaduan
      */
-    public DaftarPengaduan() {
+    public DaftarPengaduan(String idUser, String namaUser, String roleUser) {
+        this.idUser = idUser;
+        this.namaUser = namaUser;
+        this.roleUser = roleUser;
         initComponents();
         loadTable();      
         setupComboBox();  
@@ -42,6 +48,7 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         tabelPengaduan = new javax.swing.JTable();
         buttonTanggapi = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        Kembali = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,25 +93,33 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ubah Status", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
 
+        Kembali.setText("Kembali");
+        Kembali.addActionListener(this::KembaliActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(261, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Kembali)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(buttonTanggapi)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(buttonTanggapi)))))
                 .addGap(76, 76, 76))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
+                .addGap(94, 94, 94)
+                .addComponent(Kembali)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -159,13 +174,25 @@ public class DaftarPengaduan extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        try {
+        Connection c = Database.getConnection();
+        String sql = "UPDATE Pengaduan SET status = ? WHERE id_pengaduan = ?";
+        PreparedStatement ps = c.prepareStatement(sql);
+        ps.setString(1, statusBaru);
+        ps.setInt(2, idPengaduan);
+        ps.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Status berhasil diubah");
+        loadTable();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mengubah status: " + e.getMessage());
+    }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void buttonTanggapiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTanggapiActionPerformed
 int baris = tabelPengaduan.getSelectedRow();
 if (baris != -1) {
     int idPengaduan = Integer.parseInt(tabelPengaduan.getValueAt(baris, 0).toString());
-    new Tanggapan(idPengaduan).setVisible(true); // Membuka form Tanggapan
+    new Tanggapan(idPengaduan).setVisible(true);
 } else {
     JOptionPane.showMessageDialog(this, "Pilih baris yang ingin ditanggapi!");
 }
@@ -180,6 +207,13 @@ if (baris != -1) {
     }
 }
     }//GEN-LAST:event_tabelPengaduanMouseClicked
+
+    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
+        // TODO add your handling code here:
+        menuUtama menu = new menuUtama(idUser, namaUser, roleUser);
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_KembaliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +237,7 @@ if (baris != -1) {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DaftarPengaduan().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new DaftarPengaduan().setVisible(true));
     }
 // Method mengatur isi ComboBox
     private void setupComboBox() {
@@ -245,6 +279,7 @@ if (baris != -1) {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Kembali;
     private javax.swing.JButton buttonTanggapi;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

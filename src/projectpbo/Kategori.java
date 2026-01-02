@@ -16,6 +16,9 @@ import projectpbo.Connection.Database;
  */
 public class Kategori extends javax.swing.JFrame {
     
+    private String idUser;
+    private String namaUser;
+    private String roleUser;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Kategori.class.getName());
     private DefaultTableModel model;
     private int selectedId = -1;
@@ -28,7 +31,11 @@ public class Kategori extends javax.swing.JFrame {
     /**
      * Creates new form Kategori
      */
-    public Kategori() {
+    public Kategori(String idUser, String namaUser, String roleUser) {
+        this.idUser = idUser;
+        this.namaUser = namaUser;
+        this.roleUser = roleUser;
+        
         initComponents();
         initTable();
         loadData();
@@ -85,6 +92,7 @@ public class Kategori extends javax.swing.JFrame {
         Edit = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelKategori = new javax.swing.JTable();
+        Kembali = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,31 +158,43 @@ public class Kategori extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabelKategori);
 
+        Kembali.setText("Kembali");
+        Kembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KembaliActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(402, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Pesan)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(Simpan)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Batal))
-                                .addComponent(namaKategori)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(Edit)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(hapus))))
-                        .addGap(184, 184, 184))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(318, 318, 318))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Pesan)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(Simpan)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Batal))
+                                        .addComponent(namaKategori)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(Edit)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(hapus))))
+                                .addGap(184, 184, 184))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(318, 318, 318))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(Kembali)
+                        .addGap(579, 579, 579))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +215,9 @@ public class Kategori extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Edit)
                     .addComponent(hapus))
-                .addGap(96, 96, 96)
+                .addGap(55, 55, 55)
+                .addComponent(Kembali)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(223, Short.MAX_VALUE))
         );
@@ -327,6 +349,13 @@ public class Kategori extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_hapusActionPerformed
 
+    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
+        // TODO add your handling code here:
+        menuUtama menu = new menuUtama(idUser, namaUser, roleUser);
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_KembaliActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -349,12 +378,13 @@ public class Kategori extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Kategori().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new Kategori().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Batal;
     private javax.swing.JButton Edit;
+    private javax.swing.JButton Kembali;
     private javax.swing.JLabel Pesan;
     private javax.swing.JButton Simpan;
     private javax.swing.JButton hapus;
