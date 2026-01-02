@@ -30,7 +30,10 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         this.roleUser = roleUser;
         initComponents();
         loadTable();      
-//      setupComboBox();  
+//      setupComboBox(); 
+        if (!roleUser.equals("Admin")) {
+            buttonTanggapi.setVisible(false);
+        }
     }
 
     /**
@@ -51,6 +54,8 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
 
@@ -85,10 +90,18 @@ public class DaftarPengaduan extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelPengaduan);
+        if (tabelPengaduan.getColumnModel().getColumnCount() > 0) {
+            tabelPengaduan.getColumnModel().getColumn(2).setMinWidth(200);
+            tabelPengaduan.getColumnModel().getColumn(6).setMinWidth(200);
+        }
 
+        buttonTanggapi.setBackground(new java.awt.Color(0, 153, 0));
+        buttonTanggapi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        buttonTanggapi.setForeground(new java.awt.Color(255, 255, 255));
         buttonTanggapi.setText("Tanggapi");
         buttonTanggapi.addActionListener(this::buttonTanggapiActionPerformed);
 
+        Kembali.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Kembali.setText("Kembali");
         Kembali.addActionListener(this::KembaliActionPerformed);
 
@@ -96,26 +109,27 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Kembali)
-                        .addGap(46, 46, 46)
-                        .addComponent(buttonTanggapi))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(191, 191, 191))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(56, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Kembali)
+                .addGap(43, 43, 43)
+                .addComponent(buttonTanggapi)
+                .addGap(502, 502, 502))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Kembali)
                     .addComponent(buttonTanggapi))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -131,7 +145,7 @@ public class DaftarPengaduan extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(497, 497, 497))
+                .addGap(525, 525, 525))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +168,7 @@ public class DaftarPengaduan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
