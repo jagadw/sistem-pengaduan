@@ -16,19 +16,16 @@ import projectpbo.Connection.Database;
  */
 public class Tanggapan extends javax.swing.JFrame {
     
-    // 1. Variabel penampung ID
     private int idPengaduan; 
 
-    // Constructor Default
     public Tanggapan() {
         initComponents();
     }
 
-    // 2. Constructor Baru dengan Parameter
     public Tanggapan(int id) {
         initComponents();
         this.idPengaduan = id;
-        loadDataPengaduan(); // Load data saat dibuka
+        loadDataPengaduan();
     }
 
     /**
@@ -99,13 +96,12 @@ public class Tanggapan extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel3.setText("Subject : ");
+        jLabel3.setText("Isi pengaduan : ");
 
-        textJudul.setText("Judul");
+        textJudul.setText("pesan");
 
         textBox.setColumns(20);
         textBox.setRows(5);
-        textBox.setText("textBox");
         jScrollPane1.setViewportView(textBox);
 
         btnKirim.setText("Kirim");
@@ -216,7 +212,6 @@ String isiTanggapan = textBox.getText();
     try {
         Connection conn = Database.getConnection();
         
-        // 1. Simpan Tanggapan (ID User 2 = Admin)
         String sqlInsert = "INSERT INTO Tanggapan (id_user, tanggapan) VALUES (2, ?)";
         PreparedStatement pstInsert = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
         pstInsert.setString(1, isiTanggapan);
@@ -226,7 +221,6 @@ String isiTanggapan = textBox.getText();
         int idTanggapanBaru = 0;
         if (rs.next()) { idTanggapanBaru = rs.getInt(1); }
 
-        // 2. Update Status Pengaduan
         String sqlUpdate = "UPDATE Pengaduan SET id_tanggapan = ?, status = 'Dibalas' WHERE id_pengaduan = ?";
         PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdate);
         pstUpdate.setInt(1, idTanggapanBaru);
@@ -234,7 +228,7 @@ String isiTanggapan = textBox.getText();
         pstUpdate.executeUpdate();
 
         JOptionPane.showMessageDialog(this, "Berhasil menanggapi!");
-        this.dispose(); // Tutup form
+        this.dispose();
         
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
