@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
+import java.awt.Desktop;
+import java.net.URI;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,6 +71,11 @@ public class menuUtama extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         Bantuan.setText("Bantuan");
+        Bantuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BantuanActionPerformed(evt);
+            }
+        });
 
         tambahKategori.setText("Atur Kategori");
         tambahKategori.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +224,7 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void tambahKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahKategoriActionPerformed
         // TODO add your handling code here:
-        Kategori kategori = new Kategori();
+        Kategori kategori = new Kategori(idUser, namaUser, roleUser);
         kategori.setVisible(true);
         dispose();
     }//GEN-LAST:event_tambahKategoriActionPerformed
@@ -230,10 +238,20 @@ public class menuUtama extends javax.swing.JFrame {
 
     private void daftarPengaduanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarPengaduanActionPerformed
         // TODO add your handling code here:
-        //        DaftarPengaduan dp = new DaftarPengaduan(namaUser, roleUser);
-        //        dp.setVisible(true);
-        //        dispose();
+                DaftarPengaduan dp = new DaftarPengaduan(idUser, namaUser, roleUser);
+                dp.setVisible(true);
+                dispose();
     }//GEN-LAST:event_daftarPengaduanActionPerformed
+
+    private void BantuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BantuanActionPerformed
+        // TODO add your handling code here:]
+        try {
+        String url = "https://api.whatsapp.com/send?phone=628873461479&text=Halo%20kak%2C%20tolong%20saya%20memiliki%20keluhan%20terkait%3A%20";
+        Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal membuka WhatsApp");
+        }
+    }//GEN-LAST:event_BantuanActionPerformed
 
     /**
      * @param args the command line arguments
