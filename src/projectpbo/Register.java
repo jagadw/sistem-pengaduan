@@ -84,11 +84,6 @@ public class Register extends javax.swing.JFrame {
         Role.setText("Role");
 
         selectRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        selectRole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectRoleActionPerformed(evt);
-            }
-        });
 
         Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Email.setText("Email");
@@ -96,28 +91,12 @@ public class Register extends javax.swing.JFrame {
         Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Password.setText("Password");
 
-        inputPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputPasswordActionPerformed(evt);
-            }
-        });
-
         buttonRegister.setBackground(new java.awt.Color(102, 204, 255));
         buttonRegister.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonRegister.setText("Register");
-        buttonRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRegisterActionPerformed(evt);
-            }
-        });
 
         buttonLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonLogin.setText("Login");
-        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLoginActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -204,56 +183,6 @@ public class Register extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputPasswordActionPerformed
-
-    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        // TODO add your handling code here:
-        Login login = new Login();
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_buttonLoginActionPerformed
-
-    private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
-        // TODO add your handling code here:
-        String nama = inputNama.getText().trim();
-        String role = selectRole.getSelectedItem().toString();
-        String email = inputEmail.getText().trim();
-        String password = String.valueOf(inputPassword.getPassword());
-
-        if (nama.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua field wajib diisi");
-            return;
-        }
-
-        try {
-            Connection conn = Database.getConnection();
-            String sql = "INSERT INTO Users (nama, role, email, password) VALUES (?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, nama);
-            ps.setString(2, role);
-            ps.setString(3, email);
-            ps.setString(4, password);
-
-            ps.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Registrasi berhasil");
-
-            Login login = new Login();
-            login.setVisible(true);
-            this.dispose();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-
-    }//GEN-LAST:event_buttonRegisterActionPerformed
-
-    private void selectRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRoleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selectRoleActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -295,4 +224,21 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JComboBox<String> selectRole;
     // End of variables declaration//GEN-END:variables
+
+    public String getNama() {
+        return inputNama.getText().trim();
+    }
+
+    public String getRole() {
+        return selectRole.getSelectedItem().toString();
+    }
+
+    public String getEmail() {
+        return inputEmail.getText().trim();
+    }
+
+    public String getPassword() {
+        return String.valueOf(inputPassword.getPassword());
+    }
+
 }

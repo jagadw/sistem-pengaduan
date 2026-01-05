@@ -82,28 +82,12 @@ public class Login extends javax.swing.JFrame {
         Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Password.setText("Password");
 
-        inputPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputPasswordActionPerformed(evt);
-            }
-        });
-
         buttonLogin.setBackground(new java.awt.Color(102, 204, 255));
         buttonLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonLogin.setText("Login");
-        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLoginActionPerformed(evt);
-            }
-        });
 
         buttonRegister.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonRegister.setText("Register");
-        buttonRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRegisterActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -207,54 +191,6 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        // TODO add your handling code here:
-    String email = inputEmail.getText().trim();
-    String password = String.valueOf(inputPassword.getPassword());
-
-    if(email.isEmpty() || password.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Email dan password wajib diisi");
-    return;
-    }
-
-    try {
-    Connection conn = Database.getConnection();
-    String sql = "SELECT id, nama, role FROM Users WHERE email=? AND password=?";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, email);
-    ps.setString(2, password);
-
-    ResultSet rs = ps.executeQuery();
-
-    if(rs.next()) {
-         String idUser = rs.getString("id");
-         String namaUser = rs.getString("nama");
-         String roleUser = rs.getString("role");
-         menuUtama utama = new menuUtama(idUser, namaUser, roleUser);
-         utama.setVisible(true);
-         this.dispose();
-    } else {
-         JOptionPane.showMessageDialog(this, "Email atau password salah");
-    }
-
-
-    } catch (Exception e) {
-    JOptionPane.showMessageDialog(this, e.getMessage());
-    }
-                
-    }//GEN-LAST:event_buttonLoginActionPerformed
-
-    private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
-        // TODO add your handling code here:
-        Register register = new Register();
-        register.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_buttonRegisterActionPerformed
-
-    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputPasswordActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -294,4 +230,20 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JButton getButtonLogin() {
+        return buttonLogin;
+    }
+
+    public javax.swing.JButton getButtonRegister() {
+        return buttonRegister;
+    }
+
+    public String getEmail() {
+        return inputEmail.getText().trim();
+    }
+
+    public String getPassword() {
+        return String.valueOf(inputPassword.getPassword());
+    }
+
 }

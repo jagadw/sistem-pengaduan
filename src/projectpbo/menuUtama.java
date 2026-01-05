@@ -75,35 +75,15 @@ public class menuUtama extends javax.swing.JFrame {
 
         Bantuan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Bantuan.setText("Bantuan");
-        Bantuan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BantuanActionPerformed(evt);
-            }
-        });
 
         tambahKategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tambahKategori.setText("Atur Kategori");
-        tambahKategori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tambahKategoriActionPerformed(evt);
-            }
-        });
 
         daftarPengaduan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         daftarPengaduan.setText("Daftar Pengaduan");
-        daftarPengaduan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                daftarPengaduanActionPerformed(evt);
-            }
-        });
 
         formPengaduan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         formPengaduan.setText("Form Pengaduan");
-        formPengaduan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                formPengaduanActionPerformed(evt);
-            }
-        });
 
         User.setBackground(new java.awt.Color(0, 0, 0));
         User.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -116,11 +96,6 @@ public class menuUtama extends javax.swing.JFrame {
         Logout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Logout.setForeground(new java.awt.Color(255, 255, 255));
         Logout.setText("Logout");
-        Logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogoutActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,44 +202,6 @@ public class menuUtama extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        // TODO add your handling code here:
-        Login login = new Login();
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_LogoutActionPerformed
-
-    private void tambahKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahKategoriActionPerformed
-        // TODO add your handling code here:
-        Kategori kategori = new Kategori(idUser, namaUser, roleUser);
-        kategori.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_tambahKategoriActionPerformed
-
-    private void formPengaduanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formPengaduanActionPerformed
-        // TODO add your handling code here:
-                FormPengaduan fp = new FormPengaduan(idUser, namaUser, roleUser);
-                fp.setVisible(true);
-                dispose();
-    }//GEN-LAST:event_formPengaduanActionPerformed
-
-    private void daftarPengaduanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daftarPengaduanActionPerformed
-        // TODO add your handling code here:
-                DaftarPengaduan dp = new DaftarPengaduan(idUser, namaUser, roleUser);
-                dp.setVisible(true);
-                dispose();
-    }//GEN-LAST:event_daftarPengaduanActionPerformed
-
-    private void BantuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BantuanActionPerformed
-        // TODO add your handling code here:]
-        try {
-        String url = "https://api.whatsapp.com/send?phone=628873461479&text=Halo%20kak%2C%20tolong%20saya%20memiliki%20keluhan%20terkait%3A%20";
-        Desktop.getDesktop().browse(new URI(url));
-        } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal membuka WhatsApp");
-        }
-    }//GEN-LAST:event_BantuanActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -304,4 +241,29 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JLabel menuUtama;
     private javax.swing.JButton tambahKategori;
     // End of variables declaration//GEN-END:variables
+
+    // Buttons
+    public javax.swing.JButton getBantuan() {
+        return Bantuan;
+    }
+    public javax.swing.JButton getTambahKategori() {
+        return tambahKategori;
+    }
+    public javax.swing.JButton getDaftarPengaduan() {
+        return daftarPengaduan;
+    }
+    public javax.swing.JButton getFormPengaduan() {
+        return formPengaduan;
+    }
+    public javax.swing.JButton getLogout() {
+        return Logout;
+    }
+
+    // Labels
+    public javax.swing.JLabel getUser() {
+        return User;
+    }
+    public javax.swing.JLabel getRole() {
+        return Role;
+    }
 }

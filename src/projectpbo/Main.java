@@ -4,20 +4,18 @@
  */
 package projectpbo;
 
+import projectpbo.Controller.LoginController;
+
 /**
  *
  * @author JAGAD
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
         java.awt.EventQueue.invokeLater(() -> {
-        new Login().setVisible(true);
+            Login view = new Login();
+            new LoginController(view);
+            view.setVisible(true);
         });
     }
-    
 }

@@ -168,9 +168,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Bantuan"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BantuanActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="tambahKategori">
                   <Properties>
@@ -179,9 +176,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Atur Kategori"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tambahKategoriActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="daftarPengaduan">
                   <Properties>
@@ -190,9 +184,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Daftar Pengaduan"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="daftarPengaduanActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="formPengaduan">
                   <Properties>
@@ -201,9 +192,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Form Pengaduan"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="formPengaduanActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="User">
                   <Properties>
@@ -237,9 +225,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Logout"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LogoutActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
