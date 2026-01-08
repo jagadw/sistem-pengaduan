@@ -3,72 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import projectpbo.Connection.Database;
 
 /**
  *
  * @author JAGAD
  */
+import javax.swing.table.DefaultTableModel;
+
 public class Kategori extends javax.swing.JFrame {
-    
-    private String idUser;
-    private String namaUser;
-    private String roleUser;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Kategori.class.getName());
-    private DefaultTableModel model;
+
     private int selectedId = -1;
-    private void resetForm() {
-    namaKategori.setText("");
-    inputPesan.setText("");
-    selectedId = -1;
-    }
-    
-    /**
-     * Creates new form Kategori
-     */
-    public Kategori(String idUser, String namaUser, String roleUser) {
-        this.idUser = idUser;
-        this.namaUser = namaUser;
-        this.roleUser = roleUser;
-        
+
+    public Kategori() {
         initComponents();
         initTable();
-        loadData();
     }
 
     private void initTable() {
-    model = new DefaultTableModel();
-    model.addColumn("ID");
-    model.addColumn("Kategori");
-    model.addColumn("Keterangan");
-    tabelKategori.setModel(model);
-    }
-
-    private void loadData() {
-    model.setRowCount(0);
-    try {
-    Connection conn = Database.getConnection();
-    String sql = "SELECT * FROM Kategori";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            model.addRow(new Object[]{
-                rs.getInt("id_kategori"),
-                rs.getString("nama_kategori"),
-                rs.getString("keterangan")
-            });
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    }
-
-
+        DefaultTableModel model = new DefaultTableModel(
+            new Object[][]{},
+            new String[]{"ID", "Kategori", "Keterangan"}
+        );
+        tabelKategori.setModel(model);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,32 +70,12 @@ public class Kategori extends javax.swing.JFrame {
         jScrollPane2.setViewportView(inputPesan);
 
         Simpan.setText("Simpan");
-        Simpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SimpanActionPerformed(evt);
-            }
-        });
 
         Batal.setText("Batal");
-        Batal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BatalActionPerformed(evt);
-            }
-        });
 
         hapus.setText("Hapus");
-        hapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hapusActionPerformed(evt);
-            }
-        });
 
         Edit.setText("Edit");
-        Edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditActionPerformed(evt);
-            }
-        });
 
         tabelKategori.setBackground(new java.awt.Color(204, 204, 204));
         tabelKategori.setModel(new javax.swing.table.DefaultTableModel(
@@ -153,19 +89,9 @@ public class Kategori extends javax.swing.JFrame {
                 "No", "Kategori", "Keterangan"
             }
         ));
-        tabelKategori.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelKategoriMouseClicked(evt);
-            }
-        });
         jScrollPane3.setViewportView(tabelKategori);
 
         Kembali.setText("Kembali");
-        Kembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KembaliActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -265,123 +191,6 @@ public class Kategori extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanActionPerformed
-        // TODO add your handling code here:
-        String nama = namaKategori.getText().trim();
-        String pesan = inputPesan.getText().trim();
-
-        if (nama.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nama kategori wajib diisi");
-            return;
-        }
-
-        try {
-            Connection conn = Database.getConnection();
-            String sql = "INSERT INTO Kategori (nama_kategori, keterangan) VALUES (?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, nama);
-            ps.setString(2, pesan);
-            ps.executeUpdate();
-
-            loadData();
-            resetForm();
-            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_SimpanActionPerformed
-
-    private void tabelKategoriMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKategoriMouseClicked
-        // TODO add your handling code here:
-        int row = tabelKategori.getSelectedRow();
-        selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-        namaKategori.setText(model.getValueAt(row, 1).toString());
-        inputPesan.setText(model.getValueAt(row, 2).toString());
-    }//GEN-LAST:event_tabelKategoriMouseClicked
-
-    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-        // TODO add your handling code here:
-        if (selectedId == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data dulu");
-            return;
-        }
-        
-        try {
-        Connection conn = Database.getConnection();
-        String sql = "UPDATE Kategori SET nama_kategori=?, keterangan=? WHERE id_kategori=?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, namaKategori.getText());
-        ps.setString(2, inputPesan.getText());
-        ps.setInt(3, selectedId);
-        ps.executeUpdate();
-
-        loadData();
-        resetForm();
-        JOptionPane.showMessageDialog(this, "Data berhasil diupdate");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    }
-    }//GEN-LAST:event_EditActionPerformed
-
-    private void BatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BatalActionPerformed
-        // TODO add your handling code here:
-        resetForm();
-    }//GEN-LAST:event_BatalActionPerformed
-
-    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
-        // TODO add your handling code here:
-        if (selectedId == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data dulu");
-            return;
-            }
-
-            try {
-                Connection conn = Database.getConnection();
-                String sql = "DELETE FROM Kategori WHERE id_kategori=?";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setInt(1, selectedId);
-                ps.executeUpdate();
-
-                loadData();
-                resetForm();
-                JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-    }//GEN-LAST:event_hapusActionPerformed
-
-    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
-        // TODO add your handling code here:
-        menuUtama menu = new menuUtama(idUser, namaUser, roleUser);
-        menu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_KembaliActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new Kategori().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Batal;
     private javax.swing.JButton Edit;
@@ -399,4 +208,54 @@ public class Kategori extends javax.swing.JFrame {
     private javax.swing.JTextField namaKategori;
     private javax.swing.JTable tabelKategori;
     // End of variables declaration//GEN-END:variables
+    public String getNamaKategori() {
+        return namaKategori.getText();
+    }
+
+    public String getPesan() {
+        return inputPesan.getText();
+    }
+
+    public void setNamaKategori(String nama) {
+        namaKategori.setText(nama);
+    }
+
+    public void setPesan(String pesan) {
+        inputPesan.setText(pesan);
+    }
+
+    public int getSelectedId() {
+        return selectedId;
+    }
+
+    public void setSelectedId(int id) {
+        this.selectedId = id;
+    }
+
+    public javax.swing.JButton getButtonSimpan() {
+        return Simpan;
+    }
+
+    public javax.swing.JButton getButtonEdit() {
+        return Edit;
+    }
+
+    public javax.swing.JButton getButtonHapus() {
+        return hapus;
+    }
+
+    public javax.swing.JButton getButtonKembali() {
+        return Kembali;
+    }
+
+    public javax.swing.JTable getTable() {
+        return tabelKategori;
+    }
+
+    public void resetForm() {
+        namaKategori.setText("");
+        inputPesan.setText("");
+        selectedId = -1;
+    }
+
 }

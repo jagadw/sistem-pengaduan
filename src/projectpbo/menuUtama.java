@@ -3,37 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.awt.Desktop;
-import java.net.URI;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author JAGAD
  */
-public class menuUtama extends javax.swing.JFrame {
-    private String idUser;
-    private String namaUser;
-    private String roleUser;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(menuUtama.class.getName());
+public class MenuUtama extends javax.swing.JFrame {
 
-    /**
-     * Creates new form menuUtama
-     */
-    public menuUtama(String idUser, String namaUser, String roleUser) {
-        initComponents();
-        this.idUser = idUser;
-        this.namaUser = namaUser;
-        this.roleUser = roleUser;
-        User.setText(namaUser);
-        Role.setText(roleUser);
-        
-        if (!roleUser.equals("Admin")) {
-            tambahKategori.setVisible(false);
-        }
-    }
-
-    public menuUtama() {
+    public MenuUtama() {
         initComponents();
     }
 
@@ -202,31 +179,6 @@ public class menuUtama extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new menuUtama().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bantuan;
     private javax.swing.JButton Logout;
@@ -242,7 +194,6 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JButton tambahKategori;
     // End of variables declaration//GEN-END:variables
 
-    // Buttons
     public javax.swing.JButton getBantuan() {
         return Bantuan;
     }
@@ -259,7 +210,6 @@ public class menuUtama extends javax.swing.JFrame {
         return Logout;
     }
 
-    // Labels
     public javax.swing.JLabel getUser() {
         return User;
     }

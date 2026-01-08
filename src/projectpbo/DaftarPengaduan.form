@@ -3,9 +3,6 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1280, 720]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -188,9 +185,6 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelPengaduanMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -207,9 +201,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tanggapi"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTanggapiActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Kembali">
               <Properties>
@@ -218,9 +209,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kembali"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="KembaliActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

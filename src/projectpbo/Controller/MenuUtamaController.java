@@ -9,7 +9,7 @@ package projectpbo.Controller;
  * @author JAGAD
  */
 import projectpbo.Model.User;
-import projectpbo.menuUtama;
+import projectpbo.MenuUtama;
 import java.awt.Desktop;
 import java.net.URI;
 import javax.swing.JOptionPane;
@@ -17,15 +17,16 @@ import projectpbo.DaftarPengaduan;
 import projectpbo.FormPengaduan;
 import projectpbo.Kategori;
 import projectpbo.Login;
+import projectpbo.Model.SessionUser;
 
 public class MenuUtamaController {
 
-    private menuUtama menu;
+    private MenuUtama menu;
     private User user;
 
-    public MenuUtamaController(menuUtama menu, User user) {
+    public MenuUtamaController(MenuUtama menu) {
         this.menu = menu;
-        this.user = user;
+        this.user = SessionUser.get();
 
         initView();
         initController();
@@ -49,8 +50,11 @@ public class MenuUtamaController {
     }
 
     private void logout() {
+        SessionUser.clear();
+        Login login = new Login();
+        new LoginController(login);
+        login.setVisible(true);
         menu.dispose();
-        new Login().setVisible(true);
     }
 
     private void bantuan() {
@@ -64,29 +68,23 @@ public class MenuUtamaController {
     }
 
     private void formPengaduan() {
-        new FormPengaduan(
-            user.getIdUser(),
-            user.getNama(),
-            user.getRole()
-        ).setVisible(true);
+        FormPengaduan pengaduan = new FormPengaduan();
+        new FormPengaduanController(pengaduan);
+        pengaduan.setVisible(true);
         menu.dispose();
     }
 
     private void daftarPengaduan() {
-        new DaftarPengaduan(
-            user.getIdUser(),
-            user.getNama(),
-            user.getRole()
-        ).setVisible(true);
+        DaftarPengaduan daftar = new DaftarPengaduan();
+        new DaftarPengaduanController(daftar);
+        daftar.setVisible(true);
         menu.dispose();
     }
 
     private void kategori() {
-        new Kategori(
-            user.getIdUser(),
-            user.getNama(),
-            user.getRole()
-        ).setVisible(true);
+        Kategori kategori = new Kategori();
+        new KategoriController(kategori);
+        kategori.setVisible(true);
         menu.dispose();
     }
 }

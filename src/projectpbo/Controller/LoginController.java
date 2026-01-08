@@ -11,33 +11,34 @@ package projectpbo.Controller;
 import projectpbo.Login;
 import projectpbo.Model.User;
 import projectpbo.Connection.Database;
-import projectpbo.menuUtama;
+import projectpbo.MenuUtama;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import projectpbo.Model.SessionUser;
 import projectpbo.Register;
 
 public class LoginController {
 
-    private Login view;
+    private Login login;
 
-    public LoginController(Login view) {
-        this.view = view;
+    public LoginController(Login login) {
+        this.login = login;
         initController();
     }
 
     private void initController() {
-        view.getButtonLogin().addActionListener(e -> login());
-        view.getButtonRegister().addActionListener(e -> register());
+        login.getButtonLogin().addActionListener(e -> login());
+        login.getButtonRegister().addActionListener(e -> register());
     }
 
     private void login() {
-        String email = view.getEmail();
-        String password = view.getPassword();
+        String email = login.getEmail();
+        String password = login.getPassword();
 
         if (email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Email dan password wajib diisi");
+            JOptionPane.showMessageDialog(login, "Email dan password wajib diisi");
             return;
         }
 
@@ -57,22 +58,27 @@ public class LoginController {
                 user.setRole(rs.getString("role"));
                 user.setEmail(rs.getString("email"));
 
-                menuUtama menuView = new menuUtama();
-                new MenuUtamaController(menuView, user);
-                menuView.setVisible(true);
+                SessionUser.set(user);
+                
+                MenuUtama menu = new MenuUtama();
+                new MenuUtamaController(menu);
+                menu.setVisible(true);
 
-                view.dispose();
+                login.dispose();
             } else {
-                JOptionPane.showMessageDialog(view, "Email atau password salah");
+                JOptionPane.showMessageDialog(login, "Email atau password salah");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, e.getMessage());
+            JOptionPane.showMessageDialog(login, e.getMessage());
         }
     }
 
     private void register() {
-        new Register().setVisible(true);
-        view.dispose();
+        Register register = new Register();
+        new RegisterController(register);
+        register.setVisible(true);
+        login.dispose();
     }
+
 }

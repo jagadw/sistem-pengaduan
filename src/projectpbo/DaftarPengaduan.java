@@ -1,40 +1,48 @@
+package projectpbo;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package projectpbo;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import projectpbo.Connection.Database;
-/**
- *
- * @author User
- */
-public class DaftarPengaduan extends javax.swing.JFrame {
-    
-    private String idUser;
-    private String namaUser;
-    private String roleUser;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DaftarPengaduan.class.getName());
 
-    /**
-     * Creates new form DaftarPengaduan
-     */
-    public DaftarPengaduan(String idUser, String namaUser, String roleUser) {
-        this.idUser = idUser;
-        this.namaUser = namaUser;
-        this.roleUser = roleUser;
+import javax.swing.JTable;
+import javax.swing.JButton;
+
+public class DaftarPengaduan extends javax.swing.JFrame {
+
+    public DaftarPengaduan() {
         initComponents();
-        loadTable();      
-//      setupComboBox(); 
-        if (!roleUser.equals("Admin")) {
-            buttonTanggapi.setVisible(false);
-        }
     }
+
+    public JTable getTable() {
+        return tabelPengaduan;
+    }
+
+    public JButton getButtonTanggapi() {
+        return buttonTanggapi;
+    }
+
+    public JButton getButtonKembali() {
+        return Kembali;
+    }
+
+//    @SuppressWarnings("unchecked")
+//    private void initComponents() {
+//
+//        jScrollPane1 = new javax.swing.JScrollPane();
+//        tabelPengaduan = new javax.swing.JTable();
+//        buttonTanggapi = new javax.swing.JButton();
+//        Kembali = new javax.swing.JButton();
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//
+//        jScrollPane1.setViewportView(tabelPengaduan);
+//
+//        buttonTanggapi.setText("Tanggapi");
+//        Kembali.setText("Kembali");
+//
+//        pack();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +62,6 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
@@ -84,11 +91,6 @@ public class DaftarPengaduan extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tabelPengaduan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelPengaduanMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tabelPengaduan);
         if (tabelPengaduan.getColumnModel().getColumnCount() > 0) {
             tabelPengaduan.getColumnModel().getColumn(2).setMinWidth(200);
@@ -99,11 +101,9 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         buttonTanggapi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         buttonTanggapi.setForeground(new java.awt.Color(255, 255, 255));
         buttonTanggapi.setText("Tanggapi");
-        buttonTanggapi.addActionListener(this::buttonTanggapiActionPerformed);
 
         Kembali.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Kembali.setText("Kembali");
-        Kembali.addActionListener(this::KembaliActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -174,98 +174,6 @@ public class DaftarPengaduan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonTanggapiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTanggapiActionPerformed
-int baris = tabelPengaduan.getSelectedRow();
-if (baris != -1) {
-    int idPengaduan = Integer.parseInt(tabelPengaduan.getValueAt(baris, 0).toString());
-    new Tanggapan(idPengaduan).setVisible(true);
-} else {
-    JOptionPane.showMessageDialog(this, "Pilih baris yang ingin ditanggapi!");
-}
-    }//GEN-LAST:event_buttonTanggapiActionPerformed
-
-    private void tabelPengaduanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPengaduanMouseClicked
-int baris = tabelPengaduan.getSelectedRow();
-//if (baris != -1) {
-//    Object nilai = tabelPengaduan.getValueAt(baris, 6); // Ambil status
-//    if (nilai != null) {
-//        jComboBox1.setSelectedItem(nilai.toString());
-//    }
-//}
-    }//GEN-LAST:event_tabelPengaduanMouseClicked
-
-    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
-        // TODO add your handling code here:
-        menuUtama menu = new menuUtama(idUser, namaUser, roleUser);
-        menu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_KembaliActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new DaftarPengaduan().setVisible(true));
-    }
-// Method mengatur isi ComboBox
-//    private void setupComboBox() {
-//        jComboBox1.removeAllItems();
-//        jComboBox1.addItem("Menunggu");
-//        jComboBox1.addItem("Proses");
-//        jComboBox1.addItem("Dibalas");
-//    }
-
-    // Method menampilkan data tabel
-    private void loadTable() {
-        DefaultTableModel model = (DefaultTableModel) tabelPengaduan.getModel();
-        model.setRowCount(0);
-        
-        try {
-            Connection c = Database.getConnection();
-            Statement s = c.createStatement();
-            String sql =
-            "SELECT p.*, u.nama, k.nama_kategori, t.tanggapan AS pesan_tanggapan " +
-            "FROM Pengaduan p " +
-            "JOIN Users u ON p.id_user = u.id " +
-            "LEFT JOIN Tanggapan t ON p.id_tanggapan = t.id_tanggapan " +
-            "JOIN Kategori k ON p.id_kategori = k.id_kategori";
-            
-            ResultSet r = s.executeQuery(sql);
-            
-            while (r.next()) {
-                Object[] row = {
-                    r.getInt("id_pengaduan"),
-                    r.getString("nama"),
-                    r.getString("nama_kategori"),
-                    r.getString("pesan"),
-                    r.getString("tanggal_kirim"),
-                    r.getString("status"),
-                    r.getString("pesan_tanggapan"),
-                };
-                model.addRow(row);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Kembali;
     private javax.swing.JButton buttonTanggapi;

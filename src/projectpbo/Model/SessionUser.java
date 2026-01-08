@@ -8,6 +8,21 @@ package projectpbo.Model;
  *
  * @author JAGAD
  */
-public class Kategori {
-    
+
+public class SessionUser {
+
+    private static User user;
+
+    public static void set(User u) {
+        user = u;
+    }
+
+    public static User get() {
+        return user;
+    }
+
+    public static void clear() {
+        user = null;
+    }
 }
+

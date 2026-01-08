@@ -21,12 +21,18 @@ public class RegisterController {
 
     public RegisterController(Register view) {
         this.view = view;
+        initController();
     }
 
-    public void register() {
-        if (view.getNama().isEmpty() ||
-            view.getEmail().isEmpty() ||
-            view.getPassword().isEmpty()) {
+    private void initController() {
+        view.getButtonRegister().addActionListener(e -> register());
+        view.getButtonLogin().addActionListener(e -> backToLogin());
+    }
+
+    private void register() {
+        if (view.getNama().isEmpty()
+                || view.getEmail().isEmpty()
+                || view.getPassword().isEmpty()) {
 
             JOptionPane.showMessageDialog(view, "Semua field wajib diisi");
             return;
@@ -41,7 +47,17 @@ public class RegisterController {
         simpanKeDatabase(user);
 
         JOptionPane.showMessageDialog(view, "Registrasi berhasil");
-        new Login().setVisible(true);
+
+        Login loginView = new Login();
+        new LoginController(loginView);
+        loginView.setVisible(true);
+        view.dispose();
+    }
+
+    private void backToLogin() {
+        Login loginView = new Login();
+        new LoginController(loginView);
+        loginView.setVisible(true);
         view.dispose();
     }
 
@@ -59,4 +75,5 @@ public class RegisterController {
             JOptionPane.showMessageDialog(view, e.getMessage());
         }
     }
+
 }

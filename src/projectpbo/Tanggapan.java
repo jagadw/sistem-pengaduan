@@ -3,29 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import javax.swing.JOptionPane;
-import projectpbo.Connection.Database;
+import projectpbo.Controller.TanggapanController;
+
 /**
  *
- * @author User
+ * @author JAGAD
  */
 public class Tanggapan extends javax.swing.JFrame {
-    
-    private int idPengaduan; 
 
-    public Tanggapan() {
+    public Tanggapan(int idPengaduan) {
         initComponents();
-    }
-
-    public Tanggapan(int id) {
-        initComponents();
-        this.idPengaduan = id;
-        loadDataPengaduan();
+        new TanggapanController(this, idPengaduan);
     }
 
     /**
@@ -50,6 +40,7 @@ public class Tanggapan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textBox = new javax.swing.JTextArea();
         btnKirim = new javax.swing.JButton();
+        Kembali = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -137,7 +128,6 @@ public class Tanggapan extends javax.swing.JFrame {
         );
 
         btnKirim.setText("Kirim");
-        btnKirim.addActionListener(this::btnKirimActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -170,19 +160,25 @@ public class Tanggapan extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        Kembali.setText("Kembali");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(353, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Kembali)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(308, 308, 308))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(74, 74, 74)
+                .addComponent(Kembali)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(178, Short.MAX_VALUE))
         );
@@ -205,82 +201,34 @@ public class Tanggapan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKirimActionPerformed
-String isiTanggapan = textBox.getText();
-    if (isiTanggapan.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Isi tanggapan tidak boleh kosong!");
-        return;
+    public javax.swing.JButton getButtonKirim() {
+        return btnKirim;
     }
 
-    try {
-        Connection conn = Database.getConnection();
-        
-        String sqlInsert = "INSERT INTO Tanggapan (id_user, tanggapan) VALUES (2, ?)";
-        PreparedStatement pstInsert = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-        pstInsert.setString(1, isiTanggapan);
-        pstInsert.executeUpdate();
-        
-        ResultSet rs = pstInsert.getGeneratedKeys();
-        int idTanggapanBaru = 0;
-        if (rs.next()) { idTanggapanBaru = rs.getInt(1); }
-
-        String sqlUpdate = "UPDATE Pengaduan SET id_tanggapan = ?, status = 'Dibalas' WHERE id_pengaduan = ?";
-        PreparedStatement pstUpdate = conn.prepareStatement(sqlUpdate);
-        pstUpdate.setInt(1, idTanggapanBaru);
-        pstUpdate.setInt(2, this.idPengaduan);
-        pstUpdate.executeUpdate();
-
-        JOptionPane.showMessageDialog(this, "Berhasil menanggapi!");
-        this.dispose();
-        
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    public javax.swing.JButton getButtonKembali() {
+        return Kembali;
     }
-    }//GEN-LAST:event_btnKirimActionPerformed
 
+    public String getIsiTanggapan() {
+        return textBox.getText();
+    }
+
+    public void setNamaPengirim(String nama) {
+        namaPengirim.setText(nama);
+    }
+
+    public void setJudul(String judul) {
+        textJudul.setText(judul);
+    }
+
+    public void showMessage(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        java.awt.EventQueue.invokeLater(() -> new Tanggapan().setVisible(true));
-    }
-private void loadDataPengaduan() {
-        try {
-            Connection conn = Database.getConnection();
-            String sql = "SELECT u.nama, k.nama_kategori, p.pesan " +
-                         "FROM Pengaduan p " +
-                         "JOIN Users u ON p.id_user = u.id " +
-                         "JOIN Kategori k ON p.id_kategori = k.id_kategori " +
-                         "WHERE p.id_pengaduan = ?";
-            
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setInt(1, this.idPengaduan);
-            ResultSet rs = pst.executeQuery();
-            
-            if (rs.next()) {
-                namaPengirim.setText(rs.getString("nama"));
-                textJudul.setText(rs.getString("nama_kategori"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Kembali;
     private javax.swing.JButton btnKirim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -295,4 +243,5 @@ private void loadDataPengaduan() {
     private javax.swing.JTextArea textBox;
     private javax.swing.JLabel textJudul;
     // End of variables declaration//GEN-END:variables
+
 }

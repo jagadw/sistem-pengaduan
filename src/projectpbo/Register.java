@@ -3,27 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import projectpbo.Connection.Database;
+import projectpbo.Controller.RegisterController;
+
 /**
  *
  * @author JAGAD
  */
 public class Register extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Register.class.getName());
-
+    public Register() {
+        initComponents();
+        initRole();
+    }
+    
+    private void initRole() {
+        selectRole.removeAllItems();
+        selectRole.addItem("Admin");
+        selectRole.addItem("User");
+    }
     /**
      * Creates new form Register
      */
-    public Register() {
-        initComponents();
-        selectRole.removeAllItems();
-        selectRole.addItem("Pengguna");
-        selectRole.addItem("Admin");
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,31 +183,6 @@ public class Register extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Register().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Email;
     private javax.swing.JLabel HeaderLogin;
@@ -240,5 +215,11 @@ public class Register extends javax.swing.JFrame {
     public String getPassword() {
         return String.valueOf(inputPassword.getPassword());
     }
+    public javax.swing.JButton getButtonRegister() {
+        return buttonRegister;
+    }
 
+    public javax.swing.JButton getButtonLogin() {
+        return buttonLogin;
+    }
 }

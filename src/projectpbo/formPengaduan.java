@@ -3,60 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import projectpbo.Connection.Database;
+
 /**
  *
  * @author JAGAD
  */
 public class FormPengaduan extends javax.swing.JFrame {
-    
-    private String idUser;
-    private String namaUser;
-    private String roleUser;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPengaduan.class.getName());
-    public FormPengaduan(String idUser, String namaUser, String roleUser) {
-    initComponents();
-        this.idUser = idUser;
-        this.namaUser = namaUser;
-        this.roleUser = roleUser;
-        
-        inputNama.setEditable(true);
-        loadKategori();
-    }
-    
-    public FormPengaduan() {
-        initComponents();
-    }
-    
-    private void loadKategori() {
-    try {
-    Connection con = Database.getConnection();
-    String sql = "SELECT id_kategori, nama_kategori FROM Kategori";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ResultSet rs = ps.executeQuery();
-
-        selectKategori.removeAllItems();
-
-        while (rs.next()) {
-            selectKategori.addItem(
-                rs.getInt("id_kategori") + " - " + rs.getString("nama_kategori")
-            );
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal load kategori");
-    }
-
-
-    }
     /**
      * Creates new form FormPengaduan
      */
-
+    public FormPengaduan() {
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,11 +84,6 @@ public class FormPengaduan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(inputPesan);
 
         Kirim.setText("Kirim");
-        Kirim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KirimActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -171,11 +125,6 @@ public class FormPengaduan extends javax.swing.JFrame {
         );
 
         Kembali.setText("Kembali");
-        Kembali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KembaliActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,69 +169,9 @@ public class FormPengaduan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void KirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirimActionPerformed
-        // TODO add your handling code here:
-        String pesan = inputPesan.getText();
-
-        if (pesan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pesan wajib diisi");
-            return;
-        }
-
-        String kategoriDipilih = selectKategori.getSelectedItem().toString();
-        String idKategori = kategoriDipilih.split(" - ")[0];
-
-        try {
-            Connection con = Database.getConnection();
-            String sql = "INSERT INTO Pengaduan (id_user, id_kategori, pesan, tanggal_kirim, status) "
-                       + "VALUES (?, ?, ?, NOW(), 'Menunggu')";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(idUser));
-            ps.setInt(2, Integer.parseInt(idKategori));
-            ps.setString(3, pesan);
-
-            ps.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Pengaduan berhasil dikirim");
-            inputPesan.setText("");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengirim pengaduan");
-        }
-    }//GEN-LAST:event_KirimActionPerformed
-
-    private void KembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KembaliActionPerformed
-        // TODO add your handling code here:
-        menuUtama menu = new menuUtama(idUser, namaUser, roleUser);
-        menu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_KembaliActionPerformed
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPengaduan().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel HeaderLogin;
@@ -299,4 +188,33 @@ public class FormPengaduan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> selectKategori;
     // End of variables declaration//GEN-END:variables
+
+    public String getPesan() {
+    return inputPesan.getText().trim();
+    }
+
+    public String getKategoriTerpilih() {
+        return selectKategori.getSelectedItem().toString();
+    }
+
+    public void setNama(String nama) {
+        inputNama.setText(nama);
+    }
+
+    public void resetForm() {
+        inputPesan.setText("");
+    }
+
+    public javax.swing.JButton getButtonKirim() {
+        return Kirim;
+    }
+
+    public javax.swing.JButton getButtonKembali() {
+        return Kembali;
+    }
+
+    public javax.swing.JComboBox<String> getSelectKategori() {
+        return selectKategori;
+    }
+
 }
