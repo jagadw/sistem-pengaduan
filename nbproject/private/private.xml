@@ -6,7 +6,7 @@
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Main.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Connection/Database.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Register.java</file>
-            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/formPengaduan.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/FormPengaduan.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Kategori.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Tanggapan.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/DaftarPengaduan.java</file>
@@ -15,7 +15,12 @@
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/LoginController.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/RegisterController.java</file>
             <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/KategoriController.java</file>
-            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Model/Kategori.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Login.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/MenuUtama.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/FormPengaduanController.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Model/SessionUser.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/DaftarPengaduanController.java</file>
+            <file>file:/C:/Users/JAGAD/Documents/NetBeansProjects/projectpbo/src/projectpbo/Controller/TanggapanController.java</file>
         </group>
     </open-files>
 </project-private>
