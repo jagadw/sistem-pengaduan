@@ -11,9 +11,9 @@ import java.sql.SQLException;
  * @author JAGAD
  */
 public class Database {
-    private static final String URL = "jdbc:mysql://localhost:3306/projectpbo";
-    private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String URL = "jdbc:mysql://0.tcp.ap.ngrok.io:14653/projectpbo";
+    private static final String USER = "brogrammers";
+    private static final String PASS = "brobro123";
     public static Connection getConnection() throws SQLException {
     return DriverManager.getConnection(URL, USER, PASS);
 
