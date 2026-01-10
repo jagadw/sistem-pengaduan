@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package projectpbo.Controller;
 
 import java.sql.Connection;
@@ -11,10 +7,7 @@ import projectpbo.Connection.Database;
 import projectpbo.Login;
 import projectpbo.Model.User;
 import projectpbo.Register;
-/**
- *
- * @author JAGAD
- */
+
 public class RegisterController {
 
     private Register view;

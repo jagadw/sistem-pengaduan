@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package projectpbo.Connection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-/**
- *
- * @author JAGAD
- */
+
 public class Database {
     private static final String URL = "jdbc:mysql://0.tcp.ap.ngrok.io:14653/projectpbo";
     private static final String USER = "brogrammers";
