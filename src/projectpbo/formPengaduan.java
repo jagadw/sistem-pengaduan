@@ -3,60 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projectpbo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import projectpbo.Connection.Database;
+
 /**
  *
  * @author JAGAD
  */
 public class FormPengaduan extends javax.swing.JFrame {
-    
-    private String idUser;
-    private String namaUser;
-    private String roleUser;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormPengaduan.class.getName());
-    public FormPengaduan(String idUser, String namaUser, String roleUser) {
-    initComponents();
-        this.idUser = idUser;
-        this.namaUser = namaUser;
-        this.roleUser = roleUser;
-        
-        inputNama.setEditable(true);
-        loadKategori();
-    }
-    
-    public FormPengaduan() {
-        initComponents();
-    }
-    
-    private void loadKategori() {
-    try {
-    Connection con = Database.getConnection();
-    String sql = "SELECT id_kategori, nama_kategori FROM Kategori";
-    PreparedStatement ps = con.prepareStatement(sql);
-    ResultSet rs = ps.executeQuery();
-
-        selectKategori.removeAllItems();
-
-        while (rs.next()) {
-            selectKategori.addItem(
-                rs.getInt("id_kategori") + " - " + rs.getString("nama_kategori")
-            );
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal load kategori");
-    }
-
-
-    }
     /**
      * Creates new form FormPengaduan
      */
-
+    public FormPengaduan() {
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,71 +25,135 @@ public class FormPengaduan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         HeaderLogin = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         Nama = new javax.swing.JLabel();
         inputNama = new javax.swing.JTextField();
         Kategori = new javax.swing.JLabel();
+        selectKategori = new javax.swing.JComboBox<>();
         Pesan = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         inputPesan = new javax.swing.JTextArea();
-        selectKategori = new javax.swing.JComboBox<>();
         Kirim = new javax.swing.JButton();
+        Kembali = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        HeaderLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        HeaderLogin.setText("Pengaduan");
-
-        Nama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Nama.setText("Nama");
-
-        Kategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Kategori.setText("Kategori");
-
-        Pesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Pesan.setText("Pesan");
-
-        inputPesan.setColumns(20);
-        inputPesan.setRows(5);
-        jScrollPane1.setViewportView(inputPesan);
-
-        selectKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        Kirim.setText("Kirim");
-        Kirim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                KirimActionPerformed(evt);
+        setUndecorated(true);
+        setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nama)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1)
-                                .addComponent(inputNama))
-                            .addComponent(Pesan)
-                            .addComponent(Kategori)
-                            .addComponent(selectKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Kirim)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(HeaderLogin)))
-                .addContainerGap(95, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1.setBackground(new java.awt.Color(0, 51, 255));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectpbo/assets/Close Window Windows 11 Color.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+
+        HeaderLogin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        HeaderLogin.setForeground(new java.awt.Color(255, 255, 255));
+        HeaderLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        HeaderLogin.setText("Pengaduan");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(99, Short.MAX_VALUE)
+                .addComponent(HeaderLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 1084, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(HeaderLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(15, 15, 15))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(HeaderLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+
+        Nama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Nama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectpbo/assets/Person Pastel Glyph (2).png"))); // NOI18N
+        Nama.setText("Nama");
+
+        inputNama.setFont(new java.awt.Font("Ayuthaya", 0, 13)); // NOI18N
+        inputNama.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        Kategori.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Kategori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectpbo/assets/List Windows 11 Color.png"))); // NOI18N
+        Kategori.setText("Kategori");
+
+        selectKategori.setFont(new java.awt.Font("Ayuthaya", 0, 13)); // NOI18N
+        selectKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectKategori.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        Pesan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Pesan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projectpbo/assets/Chat Windows 11 Color.png"))); // NOI18N
+        Pesan.setText("Pesan");
+
+        inputPesan.setColumns(20);
+        inputPesan.setFont(new java.awt.Font("Ayuthaya", 0, 13)); // NOI18N
+        inputPesan.setRows(5);
+        inputPesan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jScrollPane1.setViewportView(inputPesan);
+
+        Kirim.setBackground(new java.awt.Color(0, 51, 255));
+        Kirim.setFont(new java.awt.Font("Ayuthaya", 0, 13)); // NOI18N
+        Kirim.setForeground(new java.awt.Color(255, 255, 255));
+        Kirim.setText("Kirim");
+        Kirim.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        Kembali.setBackground(new java.awt.Color(204, 0, 0));
+        Kembali.setFont(new java.awt.Font("Ayuthaya", 0, 13)); // NOI18N
+        Kembali.setForeground(new java.awt.Color(255, 255, 255));
+        Kembali.setText("Kembali");
+        Kembali.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inputNama)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(Pesan))
+                    .addComponent(Kategori)
+                    .addComponent(selectKategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Nama)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(Kirim, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Nama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,79 +166,119 @@ public class FormPengaduan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Kirim)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Kirim, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(485, 485, 485))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(157, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void KirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirimActionPerformed
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-        String pesan = inputPesan.getText();
+        dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+int xx, xy;
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_formMousePressed
 
-        if (pesan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pesan wajib diisi");
-            return;
-        }
-
-        String kategoriDipilih = selectKategori.getSelectedItem().toString();
-        String idKategori = kategoriDipilih.split(" - ")[0];
-
-        try {
-            Connection con = Database.getConnection();
-            String sql = "INSERT INTO Pengaduan (id_user, id_kategori, pesan, tanggal_kirim, status) "
-                       + "VALUES (?, ?, ?, NOW(), 'Menunggu')";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(idUser));
-            ps.setInt(2, Integer.parseInt(idKategori));
-            ps.setString(3, pesan);
-
-            ps.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Pengaduan berhasil dikirim");
-            inputPesan.setText("");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengirim pengaduan");
-        }
-    }//GEN-LAST:event_KirimActionPerformed
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPengaduan().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel HeaderLogin;
     private javax.swing.JLabel Kategori;
+    private javax.swing.JButton Kembali;
     private javax.swing.JButton Kirim;
     private javax.swing.JLabel Nama;
     private javax.swing.JLabel Pesan;
     private javax.swing.JTextField inputNama;
     private javax.swing.JTextArea inputPesan;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> selectKategori;
     // End of variables declaration//GEN-END:variables
+
+    public String getPesan() {
+    return inputPesan.getText().trim();
+    }
+
+    public String getKategoriTerpilih() {
+        return selectKategori.getSelectedItem().toString();
+    }
+
+    public void setNama(String nama) {
+        inputNama.setText(nama);
+    }
+
+    public void resetForm() {
+        inputPesan.setText("");
+    }
+
+    public javax.swing.JButton getButtonKirim() {
+        return Kirim;
+    }
+
+    public javax.swing.JButton getButtonKembali() {
+        return Kembali;
+    }
+
+    public javax.swing.JComboBox<String> getSelectKategori() {
+        return selectKategori;
+    }
+
 }
